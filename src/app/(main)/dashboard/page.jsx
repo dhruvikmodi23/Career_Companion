@@ -1,9 +1,12 @@
 
+import { getIndustryInsights } from "@/actions/dashboard";
 import { getUserOnboardingStatus } from "@/actions/user";
 import { redirect } from "next/navigation";
+import DashboardView from "./_components/dashboard-view";
 
 export default async function DashboardPage() {
   const { isOnboarded } = await getUserOnboardingStatus();
+  const insights = await getIndustryInsights();
 
   // If not onboarded, redirect to onboarding page
   // Skip this check if already on the onboarding page
@@ -13,8 +16,8 @@ export default async function DashboardPage() {
 
 
   return (
-    <div>
-
+    <div className="container mx-auto">
+      <DashboardView insights={insights} />
     </div>
   );
 }
